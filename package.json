@@ -11,8 +11,9 @@
   },
   "dependencies": {
     "element-ui": "^2.15.1",
-    "layout-dynamic-ui": "^1.2.0",
-    "vue": "^2.5.2"
+    "layout-dynamic-ui": "^1.2.7",
+    "vue": "^2.5.2",
+    "vue-meditor": "^2.1.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

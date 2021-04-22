@@ -3,8 +3,13 @@
   <div class="box-b p10 h">
     <el-card class="doc w h  over-a-y">
       <ld-doc :doc="doc">
-
       </ld-doc>
+      <div class="w h f-s">
+        <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
+          style="width:20px;height:20px" />
+        <a class="c-p" href="https://github.com/dongmingzhixiu/layout-dynamic-ui">发现错误,去修改</a>
+      </div>
+      <div class="m10"></div>
     </el-card>
   </div>
 </template>
