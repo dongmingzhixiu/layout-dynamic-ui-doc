@@ -2,14 +2,11 @@
   <!-- 安装 -->
   <div class="box-b p10 h">
     <el-card class="doc w h  over-a-y">
-      <ld-doc :doc="doc">
+      <ld-doc :doc="doc" class="w h">
+        <template v-slot:foot="e">
+          <foot></foot>
+        </template>
       </ld-doc>
-      <div class="w h f-s">
-        <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
-          style="width:20px;height:20px" />
-        <a class="c-p" href="https://github.com/dongmingzhixiu/layout-dynamic-ui">发现错误,去修改</a>
-      </div>
-      <div class="m10"></div>
     </el-card>
   </div>
 </template>
@@ -31,7 +28,7 @@
             slot: 'custom',
           },
           {
-            p:'在main.js中进行引入',
+            p: '在main.js中进行引入',
             javascript: `
                 import Vue from 'vue';
                 import App from './App';
@@ -48,7 +45,10 @@
                   components: { App },
                   template: '<App/>'
                 })`.replace(/^             /gm, ' '),
-            tip_i:'完成以上操作即可进行组件的使用！'
+            tip_s: '完成以上操作即可进行组件的使用！'
+          },
+          {
+            slot: 'foot'
           }
         ]
       }

@@ -14,12 +14,12 @@ export default {
     {
       prop: 'background',
       label: '背景色',
-      type: 'text'
+      type: 'color'
     },
     {
       prop: 'color',
       label: '前景色',
-      type: 'text'
+      type: 'color'
     },
     {
       prop: 'loadingText',

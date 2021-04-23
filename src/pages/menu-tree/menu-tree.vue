@@ -35,14 +35,11 @@
           </el-card>
         </template>
         <div class="m10"></div>
-
+        <template v-slot:foot="e">
+          <foot></foot>
+        </template>
       </ld-doc>
-      <div class="w h f-s">
-        <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
-          style="width:20px;height:20px" />
-        <a class="c-p" href="https://github.com/dongmingzhixiu/layout-dynamic-ui">发现错误,去修改</a>
-      </div>
-      <div class="m10"></div>
+
     </el-card>
   </div>
 </template>
@@ -61,7 +58,9 @@
           tip: '通过参数可多层递归显示菜单树',
           tip_d: '注意：理论上通过children节点可以无限递归多层菜单树，但为了性能考虑，请慎重操作!',
           bash: 'npm i vue-meditor',
-        }, ]
+        },{
+          slot:'foot'
+        } ]
       }
     },
     created() {}

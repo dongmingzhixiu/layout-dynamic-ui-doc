@@ -10,6 +10,12 @@
       return {
         menuTree: layout.menuTree,
       }
+    },
+    beforeCreate() {
+      //配置全局参数
+      this.$ld.component.loadingPage = {
+        loadingType: 'line-scale'
+      }
     }
   }
 </script>
@@ -52,6 +58,11 @@
       margin-top: 5px;
       line-height: 40px;
       border: 1px solid #ececec;
+    }
+    
+    .el-card__body {
+      padding: 0 !important;
+      height: 100%;
     }
   }
 </style>

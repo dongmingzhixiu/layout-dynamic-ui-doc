@@ -2,6 +2,7 @@
 import index from '@/pages/index'
 
 
+import foot from '@/components/foot.vue'
 import installs from '@/pages/start/install'
 import loading from '@/pages/loading/loading'
 import doc from '@/pages/doc/doc'
@@ -17,7 +18,9 @@ const install = (Vue, opts = {}) => {
 	Vue.component('loading', loading);
 	Vue.component('doc', doc);
 	Vue.component('menu-tree', menuTree);
+	Vue.component('foot', foot);
   
+
 }
 export default {
 	install

@@ -1,8 +1,8 @@
 <template>
   <!-- 加载 -->
   <div class="box-b p10 h loading">
-    <el-card class="doc w h  over-a-y">
-      <ld-doc :doc="doc">
+    <el-card class="doc w h">
+      <ld-doc :doc="doc" class="w h">
         <template v-slot:loadingTrue="e">
           <el-card>
             <ld-page-loading :loading="loading" style="height: 200px;">页面内容</ld-page-loading>
@@ -36,13 +36,10 @@
         </template>
         <div class="m10"></div>
 
+        <template v-slot:foot="e">
+          <foot></foot>
+        </template>
       </ld-doc>
-      <div class="w h f-s">
-        <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
-          style="width:20px;height:20px" />
-        <a class="c-p" href="https://github.com/dongmingzhixiu/layout-dynamic-ui">发现错误,去修改</a>
-      </div>
-      <div class="m10"></div>
     </el-card>
   </div>
 </template>
@@ -61,7 +58,9 @@
           tip: '通过参数控制显示内容',
           tip_d: '注意：如果在使用中需要使用`markdown`来显示内容且markdown不能正确渲染，请使用如下命令安装markdown文档解释插件`vue-meditor`',
           bash: 'npm i vue-meditor',
-        }, ]
+        }, {
+          slot: 'foot'
+        }]
       }
     },
     created() {}

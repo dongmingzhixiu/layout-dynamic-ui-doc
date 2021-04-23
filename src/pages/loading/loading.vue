@@ -1,8 +1,8 @@
 <template>
   <!-- 加载 -->
   <div class="box-b p10 h loading">
-    <el-card class="doc w h  over-a-y">
-      <ld-doc :doc="doc">
+    <el-card class="doc w h">
+      <ld-doc :doc="doc" class="w h over-a-y">
         <template v-slot:loadingTrue="e">
           <el-card>
             <ld-page-loading :loading="loading" style="height: 200px;">页面内容</ld-page-loading>
@@ -40,31 +40,32 @@
           <el-card class="p0">
             <ld-forms class="m-t10 m-b10" :form="forms" :layout="formLayout" :is-row="true">
               <template v-slot:buttons="e">
-                <el-button type="primary m-l10">定制</el-button>
+                <div style="position: relative;">
+                  <el-button type="primary m-l10" @click="copy('customCode')">复制代码</el-button>
+                  <div id="customCode" class="o0" style="position: absolute;">
+                    {{forms}}
+                  </div>
+                </div>
               </template>
             </ld-forms>
             <div class="f-s-w">
-              <div class="cur-p" @click="copy(key)" v-for="(key,i) in loadingTypes" :key="i">
-                <ld-page-loading :background="forms['background']" :color="forms['color']" :loading-text="forms['loadingText']" :skin="forms['skin']" class="w-200 h-200" :loading-type="key" :loading="true">
+              <div class="cur-p w2" @click="copy(key)" v-for="(key,i) in loadingTypes" :key="i">
+                <ld-page-loading :background="forms['background']" :color="forms['color']"
+                  :loading-text="forms['loadingText']" :skin="forms['skin']" class="w h-200" :loading-type="key"
+                  :loading="true">
                   <div class="w h position-relative">
                     <div :id="key" style="z-index: 1004;position: absolute;bottom: 0;text-align: center;"
-                      class="w p10 box-b">{{key}}</div>
+                      class="w p10 box-b c-f">{{key}}</div>
                   </div>
                 </ld-page-loading>
               </div>
             </div>
           </el-card>
         </template>
-
-        <div class="m10"></div>
-
+        <template v-slot:foot="e">
+          <foot></foot>
+        </template>
       </ld-doc>
-      <div class="w h f-s">
-        <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
-          style="width:20px;height:20px" />
-        <a class="c-p" href="https://github.com/dongmingzhixiu/layout-dynamic-ui">发现错误,去修改</a>
-      </div>
-      <div class="m10"></div>
     </el-card>
   </div>
 </template>
@@ -75,7 +76,11 @@
     name: 'loading',
     data() {
       return {
-        forms: {skin: 'light'},
+        forms: {
+          skin: 'light',
+          background: 'rgba(255, 120, 0, 0.77)',
+          color: '#fff'
+        },
         formLayout: res.layout,
         loadingTypes: [
           "ball-pulse",
@@ -114,7 +119,7 @@
         loading3: true,
 
         doc: [{
-            H1: '页面加载组件`ld-page-loading`',
+            title: '页面加载组件`ld-page-loading`',
             tip: '在用户进入页面，或者操作数据时，我们希望页面呈现出加载动画，增加用户交互！',
           }, {
             h1: '一、示例',
@@ -181,10 +186,10 @@
             |background|String|||背景色。当背景色为空时则会根据皮肤设置前景色颜色|
             |color|String|||前景色。当前景色为空时则会根据皮肤设置前景色颜色|
             |skin|String||light|皮肤：dark(深色)\|light(浅色)|
-            |loadingType|\`ball-grid-pulse\`|String||动画类型,内置29中动画，见下方示例|
+            |loading-type|\`ball-grid-pulse\`|String||动画类型,内置29中动画，见下方示例|
             |z-index|Number||1002|加载动画层级，当加载动画被遮挡时，可使用此参数|
             `,
-            H2: '支持的动画类型`loadingType`,(其中部分不支持`light`皮肤)',
+            H2: '支持的动画类型`loadingType`,(其中部分不支持`light`皮肤,前景色只能为`white`{可通过覆盖样式，进行修改})',
             slot: 'loadingType'
           },
           {
@@ -194,30 +199,36 @@
             |loading|具名插槽|自定义加载动画插槽，需要手动控制动画显示还是隐藏|
             `,
           },
+          {
+            H1: `四、全局设置加载组件动画等参数信息`,
+            tip: `在多数情况下，我们会统一整个项目中的加载动画，保证使用体验的一致性。此时可以通过全局参数设置，加载组件信息！`,
+            tip_d: `全局参数都可以选填，其中主题和前后背景色依然遵循上述参数规则！在设置全局参数后，又设置这些组件参数，则会以组件参数为准！`,
+            javascript: `
+                //配置全局参数
+                this.$ld.component.loadingPage = {
+                  //设置加载动画类型
+                  loadingType:'line-scale',
+                  //设置背景色
+                  // background:'',
+                  // //设置前景色
+                  // color:'',
+                  // //设置皮肤
+                  // skin:'',
+                  // //设置加载文字
+                  // loadingText:'',
+                }
+            `.replace(/^              /gm, "")
+          },
+          {
+            slot: 'foot'
+          }
         ]
       }
     },
     methods: {
       copy(key) {
-        let el = document.getElementById(key);
-        try {
-          if (document.selection) { // IE8 以下处理
-            var oRange = document.body.createTextRange();
-            oRange.moveToElementText(el);
-            oRange.select();
-          } else {
-            var range = document.createRange();
-            // create new range object
-            range.selectNodeContents(el); // set range to encompass desired element text
-            var selection = window.getSelection(); // get Selection object from currently user selected text
-            selection.removeAllRanges(); // unselect any user selected text (if any)
-            selection.addRange(range); // add range to Selection object to select it
-          }
-          let flg = document.execCommand("copy");
-          this.$message[flg ? 'success' : 'error'](flg ? "复制成功！" : "复制失败，请选中代码使用Ctrl+C进行复制,Ctrl+V进行黏贴！");
-        } catch (e) {
-          this.$message.error("复制失败，请选中代码使用Ctrl+C进行复制,Ctrl+V进行黏贴！");
-        }
+        let flg = this.$ld.util.copyToClipboard(`#${key}`);
+        this.$message[flg ? 'success' : 'error'](flg ? "复制成功！" : "复制失败，请选中代码使用Ctrl+C进行复制,Ctrl+V进行黏贴！");
       }
     },
     created() {}
@@ -225,7 +236,5 @@
 </script>
 
 <style>
-  .loading .el-card__body {
-    padding: 0 !important;
-  }
+  
 </style>
