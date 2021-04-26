@@ -45,9 +45,8 @@ export default {
       prop: 'docWidth',
       label: '文档内容宽度',
       placeholder:'100%或100px',
-      msg:'格式错误！',
       type: 'text',
-      regex:/^[1-6][0-9]{2}px$|[0-9]{3}[%]/,
+      value:'100%',
     },
   ]
 }
