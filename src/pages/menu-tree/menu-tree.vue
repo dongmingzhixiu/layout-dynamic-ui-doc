@@ -3,38 +3,28 @@
   <div class="box-b p10 h loading">
     <el-card class="doc w h  over-a-y">
       <ld-doc :doc="doc">
-        <template v-slot:loadingTrue="e">
-          <el-card>
-            <ld-page-loading :loading="loading" style="height: 200px;">页面内容</ld-page-loading>
+        <template v-slot:frist="e">
+          <el-card class="p10 b-i1">
+            <ld-menu-tree class="w-200" style="height: 500px;overflow: hidden auto;" :tree="tree">
+            </ld-menu-tree>
           </el-card>
         </template>
-        <div class="m10"></div>
-        <template v-slot:loadingTrueAndFalse="e">
-          <el-button class="m-b2" size="mini" @click="loading2=!loading2">{{loading2?'停止加载':'开始加载'}}</el-button>
-          <el-card>
-            <ld-page-loading :loading="loading2" style="height: 200px;">
-              这里显示的是ld-page-loading插槽中的内容
-            </ld-page-loading>
+
+        <template v-slot:secound="e">
+          <ld-forms class="m-t10 m-b10" :form="forms" :layout="layout" :is-row="true">
+            <template v-slot:buttons="e">
+              <div style="position: relative;">
+                <el-button type="primary m-l10" @click="copy('#doc2',true)">复制代码</el-button>
+              </div>
+            </template>
+          </ld-forms>
+          <el-card class="p10 b-i1">
+            <ld-menu-tree class="w-200" style="height: 500px;overflow: hidden auto;" :tree="tree">
+            </ld-menu-tree>
           </el-card>
         </template>
-        <div class="m10"></div>
-        <template v-slot:customLoadingAnimal="e">
-          <el-button class="m-b2" size="mini" @click="loading3=!loading3">{{loading3?'停止加载':'开始加载'}}</el-button>
-          <el-card class="p0">
-            <ld-page-loading :loading="loading3" style="height: 300px;">
-              <template v-if="loading3" v-slot:loading>
-                <div class="w h f-c a-i-c b-i">
-                  <div>
-                    <img src="../../../static/loading.gif" class="w-200 h-160 r10">
-                    <div class="fs36">LOADING....</div>
-                  </div>
-                </div>
-              </template>
-              这里显示的是ld-page-loading插槽中的内容
-            </ld-page-loading>
-          </el-card>
-        </template>
-        <div class="m10"></div>
+
+
         <template v-slot:foot="e">
           <foot></foot>
         </template>
@@ -45,22 +35,114 @@
 </template>
 
 <script>
+  import res from './menu-tree-res.js'
   export default {
     name: 'loading',
     data() {
       return {
-        loading: true,
-        loading2: true,
-        loading3: true,
+        forms: {},
+        layout: res.layout,
+
+        tree: [{
+            label: '菜单1',
+            prop: 'menu1',
+            children: [{
+                label: '二级菜单1',
+                prop: 'cmenu1',
+                children: [{
+                    label: '三级菜单1',
+                    prop: 'ccmenu1',
+                  },
+                  {
+                    label: '三级菜单2',
+                    prop: 'ccmenu2',
+                    children: [{
+                      label: '四级菜单1',
+                      prop: 'cccmenu1',
+                    }, {
+                      label: '四级菜单1',
+                      prop: 'cccmenu2',
+                    }]
+                  },
+                ]
+              },
+              {
+                label: '二级菜单2',
+                prop: 'cmenu2',
+              },
+              {
+                label: '二级菜单3',
+                prop: 'cmenu3',
+              },
+            ]
+          },
+          {
+            label: '菜单2',
+            prop: 'menu2',
+          },
+          {
+            label: '菜单3',
+            prop: 'menu3',
+          },
+          {
+            label: '菜单4',
+            prop: 'menu4',
+          },
+          {
+            label: '菜单5',
+            prop: 'menu5',
+          },
+        ],
 
         doc: [{
-          H1: '菜单树组件`ld-menu-tree`',
-          tip: '通过参数可多层递归显示菜单树',
-          tip_d: '注意：理论上通过children节点可以无限递归多层菜单树，但为了性能考虑，请慎重操作!',
-          bash: 'npm i vue-meditor',
-        },{
-          slot:'foot'
-        } ]
+            title: '菜单树组件`ld-menu-tree`',
+            tip: '通过参数可多层递归显示菜单树',
+            tip_d: '注意：理论上通过children节点可以无限递归多层菜单树，但为了性能考虑，请慎重操作!',
+          },
+          {
+            h1: '一.简单示例',
+            h2: '示例代码',
+            html: `
+            <ld-menu-tree class="w-200" style="height: 500px;overflow: hidden auto;" :tree="tree"></ld-menu-tree>
+            `.replace(/^        /gm, ''),
+            javascript: `
+            export default {
+                data() {
+                  return {
+                    tree:[
+                      {label: '菜单1',prop: 'menu1',
+                        children: [
+                          {label: '二级菜单1',prop: 'cmenu1',
+                            children: [
+                              {label: '三级菜单1',prop: 'ccmenu1',},
+                              {label: '三级菜单2',prop: 'ccmenu2',
+                                children: [
+                                    {label: '四级菜单1',prop: 'cccmenu1'},
+                                    {label: '四级菜单1',prop: 'cccmenu2'}]
+                                },
+                            ]},
+                          {label: '二级菜单2',prop: 'cmenu2'},
+                          {label: '二级菜单3',prop: 'cmenu3'}]
+                      },
+                      {label: '菜单2',prop: 'menu2'},
+                      {label: '菜单3',prop: 'menu3'},
+                      {label: '菜单4',prop: 'menu4'},
+                      {label: '菜单5',prop: 'menu5'},
+                  ],
+                }
+              }
+            }`.replace(/^          /gm, ''),
+            p: '效果如下',
+            slot: 'frist'
+          },
+          {
+            h1: '一.自定义示例样式',
+            slot: 'secound'
+          },
+          {
+            slot: 'foot'
+          }
+        ]
       }
     },
     created() {}

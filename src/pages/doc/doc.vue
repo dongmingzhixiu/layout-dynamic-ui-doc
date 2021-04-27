@@ -19,9 +19,6 @@
             <template v-slot:buttons="e">
               <div style="position: relative;">
                 <el-button type="primary m-l10" @click="copy('#doc2',true)">复制代码</el-button>
-                <div id="customCode" class="o0" style="position: absolute;">
-                  {{forms}}
-                </div>
               </div>
             </template>
           </ld-forms>
@@ -35,16 +32,6 @@
 
         <template v-slot:third="e">
 
-          <!-- <ld-forms class="m-t10 m-b10" :form="forms" :layout="formLayout" :is-row="true">
-            <template v-slot:buttons="e">
-              <div style="position: relative;">
-                <el-button type="primary m-l10" @click="copy('#doc2',true)">复制代码</el-button>
-                <div id="customCode" class="o0" style="position: absolute;">
-                  {{forms}}
-                </div>
-              </div>
-            </template>
-          </ld-forms> -->
           <ld-doc :doc="doc3" class="w bor-d" style="height: 1000px;">
             <template v-slot:foot="e">
               <foot></foot>
