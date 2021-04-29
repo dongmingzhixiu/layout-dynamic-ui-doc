@@ -43,7 +43,7 @@ export default {
     },
     {
       prop: 'uniqueOpened',
-      label: '保持一个子菜单',
+      label: '始终打开一个子菜单',
       type: 'select', 
       options: [{
         label: '是',

@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "element-ui": "^2.15.1",
-    "layout-dynamic-ui": "^1.2.9",
+    "layout-dynamic-ui": "^1.3.4",
     "vue": "^2.5.2",
     "vue-meditor": "^2.1.1"
   },
