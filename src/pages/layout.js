@@ -14,6 +14,8 @@ const layout = {
         { label:'加载【ld-loading-page】',prop:'加载组件',page:'loading'},
         { label:'文档【ld-doc】',prop:'文档组件',page:'doc'},
         { label:'菜单树【ld-menu-tree】',prop:'菜单树',page:'menu-tree'},
+        { label:'标签页【page-tabs】',prop:'标签页',page:'page-tabs'},
+				
       ],
     },
   ],

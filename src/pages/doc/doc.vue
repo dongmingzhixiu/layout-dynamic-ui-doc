@@ -5,7 +5,7 @@
       <ld-doc :doc="doc" class="w h">
 
         <template v-slot:first="e">
-          <ld-doc :doc="doc1" :show-outline="false" class="w h bor-d">
+          <ld-doc :doc="doc1" :show-outline="false" class="w h bor-d" style="height: 300px;">
             <template v-slot:foot="e">
               <foot></foot>
             </template>

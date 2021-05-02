@@ -4,12 +4,24 @@ export default {
       label: '类型',
       type: 'select',
       options: [{
-        label: 'vertical',
+        label: '纵向',
         value: 'vertical'
       }, {
-        label: 'horizontal',
+        label: '横向',
         value: 'horizontal'
-      }]
+      }],
+			change:(val)=>{
+				debugger
+				console.log(val);
+				return {
+					collapse:{
+						visabled:val=='vertical',
+					},
+					uniqueOpened:{
+						visabled:val=='vertical',
+					},
+				}
+			}
     },
     {
       prop: 'collapse',
