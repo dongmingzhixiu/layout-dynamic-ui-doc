@@ -8,6 +8,7 @@ import loading from '@/pages/loading/loading'
 import doc from '@/pages/doc/doc'
 import menuTree from '@/pages/menu-tree/menu-tree'
 import pageTabs from '@/pages/page-tabs/page-tabs'
+import forms from '@/pages/forms/forms'
 
 
 
@@ -20,8 +21,9 @@ const install = (Vue, opts = {}) => {
 	Vue.component('doc', doc);
 	Vue.component('menu-tree', menuTree);
 	Vue.component('page-tabs', pageTabs);
+	Vue.component('forms', forms);
 	Vue.component('foot', foot);
-  
+
 
 }
 export default {

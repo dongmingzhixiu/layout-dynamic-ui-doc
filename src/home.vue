@@ -65,4 +65,8 @@
       height: 100%;
     }
   }
+  .m-r10.box-shadow.over-a-y.h.p10.box-b {
+    max-width: 300px !important;
+    min-width: 300px !important;
+  }
 </style>

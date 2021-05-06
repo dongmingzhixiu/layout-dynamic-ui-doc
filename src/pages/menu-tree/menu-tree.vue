@@ -15,7 +15,7 @@
 					<ld-forms class="m-t10 m-b10" :form="forms" :layout="layout" :is-row="true">
 						<template v-slot:buttons="e">
 							<div style="position: relative;">
-								<el-button type="primary m-l10" @click="copy('#doc2',true)">复制代码</el-button>
+								<el-button type="primary m-l10" @click="copy(forms)">复制代码</el-button>
 							</div>
 						</template>
 					</ld-forms>
@@ -252,6 +252,12 @@
 				]
 			}
 		},
+    methods:{
+      copy(obj) {
+        let flg = this.$ld.util.copyToClipboard(JSON.stringify(obj));
+        this.$message[flg ? 'success' : 'error'](flg ? "复制成功！" : "复制失败，请选中代码使用Ctrl+C进行复制,Ctrl+V进行黏贴！");
+      }
+    },
 		created() {}
 	}
 </script>
