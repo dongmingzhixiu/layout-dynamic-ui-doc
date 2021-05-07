@@ -17,6 +17,7 @@ import pageImport from './page-import.js';
 Vue.use(pageImport);
 
 
+require("./mock/forms.js");
 
 Vue.config.productionTip = false
 

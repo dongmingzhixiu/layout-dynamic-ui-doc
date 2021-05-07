@@ -13,6 +13,7 @@
     },
     beforeCreate() {
       //配置全局参数
+      this.$ld.requestSetting.config.isMock = true;
       this.$ld.component.loadingPage = {
         loadingType: 'line-scale'
       }
@@ -59,7 +60,7 @@
       line-height: 40px;
       border: 1px solid #ececec;
     }
-    
+
     .el-card__body {
       padding: 0 !important;
       height: 100%;

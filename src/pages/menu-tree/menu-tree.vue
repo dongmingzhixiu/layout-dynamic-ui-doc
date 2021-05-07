@@ -15,7 +15,7 @@
 					<ld-forms class="m-t10 m-b10" :form="forms" :layout="layout" :is-row="true">
 						<template v-slot:buttons="e">
 							<div style="position: relative;">
-								<el-button type="primary m-l10" @click="copy(forms)">复制代码</el-button>
+								<el-button type="primary m-l10" @click="copy('#doc2',true)">复制代码</el-button>
 							</div>
 						</template>
 					</ld-forms>
@@ -53,7 +53,7 @@
 				layout: res.layout,
 
 				tree: [{
-						label: '菜单1',
+						label: '一级菜单1',
 						prop: 'menu1',
 						icon: 'el-icon-platform-eleme',
 						children: [{
@@ -66,6 +66,7 @@
 									{
 										label: '三级菜单2',
 										prop: 'ccmenu2',
+                    icon: 'el-icon-platform-eleme',
 										children: [{
 											label: '四级菜单1',
 											prop: 'cccmenu1',
@@ -87,7 +88,7 @@
 						]
 					},
 					{
-						label: '菜单2',
+						label: '一级菜单2',
 						prop: 'menu2',
 						icon: 'el-icon-eleme',
 						children: [{
@@ -108,17 +109,17 @@
 						]
 					},
 					{
-						label: '菜单3',
+						label: '一级菜单3',
 						prop: 'menu3',
 						icon: 'el-icon-s-tools',
 					},
 					{
-						label: '菜单4',
+						label: '一级菜单4',
 						prop: 'menu4',
 						icon: 'el-icon-s-goods'
 					},
 					{
-						label: '菜单5',
+						label: '一级菜单5',
 						prop: 'menu5',
 						icon: 'el-icon-success'
 					},
@@ -181,12 +182,12 @@
 								data() {
 									return {
 										tree:[
-											{label: '菜单1',prop: 'menu1',icon: 'el-icon-platform-eleme',
+											{label: '一级菜单1',prop: 'menu1',icon: 'el-icon-platform-eleme',
 												children: [{label: '二级菜单1',prop: 'cmenu1',
-													children: 
+													children:
 														[{label: '三级菜单1',prop: 'ccmenu1',},
 														{label: '三级菜单2',prop: 'ccmenu2',
-														children: 
+														children:
 															[{label: '四级菜单1',prop: 'cccmenu1',},
 															{label: '四级菜单1',prop: 'cccmenu2',}]
 														},
@@ -196,8 +197,8 @@
 												{label: '二级菜单3',prop: 'cmenu3',},
 												]
 											},
-											{label: '菜单2',prop: 'menu2',icon: 'el-icon-eleme',
-												children: 
+											{label: '一级菜单2',prop: 'menu2',icon: 'el-icon-eleme',
+												children:
 													[{label: '二级菜单2',prop: 'ccmenu2',},
 													{label: '二级菜单3',prop: 'ccmenu3',
 														children:
@@ -206,18 +207,18 @@
 														},
 													]
 											},
-											{label: '菜单3',prop: 'menu3',icon: 'el-icon-s-tools',},
-											{label: '菜单4',prop: 'menu4',icon: 'el-icon-s-goods'},
-											{label: '菜单5',prop: 'menu5',icon: 'el-icon-success'},
+											{label: '一级菜单3',prop: 'menu3',icon: 'el-icon-s-tools',},
+											{label: '一级菜单4',prop: 'menu4',icon: 'el-icon-s-goods'},
+											{label: '一级菜单5',prop: 'menu5',icon: 'el-icon-success'},
 										]
 									}
 								}
 							}`.replace(/^							/gm, ''),
 					},
 					{
-						H1:'三.参数和其他',
-						h2:'参数说明',
-						md:`|关键字|类型|解释|默认值|是否必须|说明|
+						H1: '三.参数和其他',
+						h2: '参数说明',
+						md: `|关键字|类型|解释|默认值|是否必须|说明|
 								|-|-|-|-|-|-|
 								|tree|Array|菜单参数|[]|√|一组对象数据的集合[{label:'菜单1'},{label:'菜单2'},{label:'菜单3'}]即可创建一个简单的菜单[详情点这里,查看tree的取值](###tree)|
 								|mode|String|菜单类型(\`vertical\`\\|\`horizontal\`)|vertical纵向||菜单树方向，可以使纵向，也可以是横向菜单|
@@ -231,8 +232,8 @@
 								|defaultActive|String|当前激活菜单的 index|'0'|||`
 					},
 					{
-						h2:'tree参数说明',
-						md:`|关键字|类型|解释|默认值|是否必须|说明|
+						h2: 'tree参数说明',
+						md: `|关键字|类型|解释|默认值|是否必须|说明|
 								|-|-|-|-|-|-|
 								|label|String|菜单显示的名称|-|√|-|
 								|icon|String|菜单显示的图标|-||比如值为：'el-icon-search';建议一级菜单设置icon,在折叠菜单时比较重要|
@@ -241,10 +242,24 @@
 `
 					},
 					{
-						h2:'Event事件',
-						md:`|名称|类型|返回值|解释|说明|
+						h2: 'Event事件',
+						md: `|名称|类型|返回值|解释|说明|
 						|-|-|-|-|-|
 						|click|Function($event)|Object|菜单点击事件|当点击菜单时，触发事件。|`
+					},
+					{
+						h1: '四.补充说明',
+						tip_d: '如果发现当设置值为`mode="horizontal"`时，打开二级菜单会改变一级菜单的宽度时，请使用以下样式',
+						css: `
+						.el-menu--horizontal.el-menu>.el-submenu {
+							position: relative;
+						}
+
+						.el-menu--horizontal.el-menu>.el-submenu>.el-menu--horizontal {
+							position: absolute;
+						}
+
+						`.replace(/^						/gm, ''),
 					},
 					{
 						slot: 'foot'
@@ -252,12 +267,6 @@
 				]
 			}
 		},
-    methods:{
-      copy(obj) {
-        let flg = this.$ld.util.copyToClipboard(JSON.stringify(obj));
-        this.$message[flg ? 'success' : 'error'](flg ? "复制成功！" : "复制失败，请选中代码使用Ctrl+C进行复制,Ctrl+V进行黏贴！");
-      }
-    },
 		created() {}
 	}
 </script>
@@ -265,5 +274,15 @@
 <style>
 	.loading .el-card__body {
 		padding: 0 !important;
+	}
+
+	.el-menu--horizontal.el-menu>.el-submenu {
+		position: relative;
+	}
+
+	/* .el-menu--horizontal.el-menu>.el-submenu>.el-submenu__title {} */
+
+	.el-menu--horizontal.el-menu>.el-submenu>.el-menu--horizontal {
+		position: absolute;
 	}
 </style>
