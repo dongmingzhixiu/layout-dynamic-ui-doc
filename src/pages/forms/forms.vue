@@ -17,7 +17,7 @@
           </el-card>
         </template>
 
-        <template v-slot:text="e">
+     <template v-slot:text="e">
           <el-card class="w over-a-x p10 box-b w-400 p-r10">
             <ld-forms ref="text1" :form="{}" :layout="text"> </ld-forms>
           </el-card>
@@ -70,7 +70,7 @@
           </el-card>
         </template>
 
-        <template v-slot:address="e">
+         <template v-slot:address="e">
           <el-card class="w over-a-x p10 box-b p-r10">
             <ld-forms ref="address1" :form="{}"
               :layout="[{prop:'address1',label:'地址',type:'address',value:'甘肃省,兰州市,城关区'},{prop:'town',label:'详细地址',type:'textarea',rows:5}]">
@@ -115,7 +115,6 @@
           </el-card>
         </template>
 
-
         <template v-slot:rate="e">
           <el-card class="w over-a-x p10 box-b p-r10">
             <ld-forms ref="rate" :form="{}"
@@ -124,7 +123,7 @@
           </el-card>
         </template>
 
-        <template v-slot:color="e">
+      <template v-slot:color="e">
           <el-card class="w over-a-x p10 box-b p-r10">
             <ld-forms ref="color" :form="{}"
               :layout="[{prop:'color1',label:'颜色1',type:'color',value:'red'},{prop:'color2',label:'颜色2',type:'color',showAlpha:false,value:'rgba(30, 144, 255, 1)'},{prop:'color3',label:'颜色3',type:'color',predefine:['#ff4500','#ff8c00','#ffd700','#90ee90','#00ced1','#1e90ff','#c71585','rgba(255, 69, 0, 0.68)','rgb(255, 120, 0)','hsv(51, 100, 98)','hsva(120, 40, 94, 0.5)','hsl(181, 100%, 37%)','hsla(209, 100%, 56%, 0.73)','#c7158577']}]">
@@ -140,7 +139,7 @@
           </el-card>
         </template>
 
-        <template v-slot:param="e">
+         <template v-slot:param="e">
           <el-card class="w over-a-x p10 box-b p-r10">
             <ld-forms ref="param" :form="{}"
               :layout="[{prop: 'likeys',type: 'param',label: '数组',dataType: 'array',parseType: 'json',value: JSON.stringify(['参数。。。', '参数1']) }, {prop: 'likeys2',type: 'param',label: '对象',dataType: 'object',parseType: 'json',value: JSON.stringify({a:1,b:2,c:'张三'}) }]">
@@ -175,6 +174,63 @@
         </template>
 
 
+        <template v-slot:regexString="e">
+          <el-card class="w over-a-x p10 box-b p-r10">
+            <ld-forms :show-default-tip="true" ref="regexString" :form="{}" :layout="[{prop:'stringRegex1',label:'字符串比对',type:'text',regex:'张三',require:true,tip:'比较值只能为张三',tipClass:'tip-p b-p1'},{prop:'stringRegex2',label:'字符正则',type:'text',regex:'/^[a-z].*[0-9]$/i',require:true,tip:'字母开头，数字结尾，忽略大小写',tipClass:'tip-p b-p1'}]"> </ld-forms>
+          </el-card>
+        </template>
+
+
+        <template v-slot:regexRegExp="e">
+          <el-card class="w over-a-x p10 box-b p-r10">
+            <ld-forms ref="regexRegExp" :form="{}" :layout="regexRegExp"> </ld-forms>
+          </el-card>
+        </template>
+
+
+        <template v-slot:regexFunction="e">
+          <el-card class="w over-a-x p10 box-b p-r10">
+            <ld-forms ref="regexFunction" :form="{}" :layout="regexFunction"> </ld-forms>
+          </el-card>
+        </template>
+
+
+        <template v-slot:require="e">
+          <el-card class="w over-a-x p10 box-b p-r10">
+            <ld-forms ref="require" :form="{}" :layout="[{prop:'require',label:'可为空',type:'text',require:false},{prop:'require2',label:'不能为空',type:'text',require:true}]"> </ld-forms>
+          </el-card>
+        </template>
+
+
+
+        <template v-slot:changeProperty="e">
+          <el-card class="w over-a-x p10 box-b p-r10">
+            <ld-forms :clos="2" ref="changeProperty" :form="{}" :layout="changeProperty"> </ld-forms>
+          </el-card>
+        </template>
+
+
+        <template v-slot:changeForms="e">
+          <el-card class="w over-a-x p10 box-b p-r10">
+            <ld-forms :clos="2" ref="changeForms" :form="{}" :layout="changeForms"> </ld-forms>
+          </el-card>
+        </template>
+
+
+        <template v-slot:changeLayout="e">
+          <el-card class="w over-a-x p10 box-b p-r10">
+            <ld-forms :clos="2" ref="changeLayout" :form="{}" :layout="changeLayout"> </ld-forms>
+          </el-card>
+        </template>
+
+
+        <template v-slot:changeTest="e">
+          <el-card class="w over-a-x p10 box-b p-r10">
+            <ld-forms :show-default-tip="true" :clos="2" ref="changeTest" :form="{}" :layout="changeTest"> </ld-forms>
+          </el-card>
+        </template>
+
+
 
         <template v-slot:foot="e">
           <foot></foot>
@@ -199,6 +255,22 @@
         radio: res.radioLayout,
         checkbox: res.checkboxLayout,
         date: res.dateLayout,
+        changeProperty:res.changePropertyLayout,
+        changeForms:res.changeFormsLayout,
+        changeLayout:res.changeLayoutLayout,
+        changeTest:res.changeTestLayout,
+
+        regexRegExp:[
+          {prop:'regexRegExp',label:'手机号码',type:'text',regex:/^1[0-9]{10}$/,msg:'必须以数字1开头的11位数字！'},
+          {prop:'regexRegExp2',label:'用户密码',type:'text',password:true,regex:/^[^.'"\/#!%]{6,12}$/,msg:'不包含特殊符号的6-12为字符'},
+        ],
+        regexFunction:
+        [
+          {prop:'regexFunction',label:'只能输入奇数',type:'text',regex:(val)=>{return val%2!=0},msg:'只能输入奇数！'},
+          {prop:'regexFunction2',label:'范围数字',type:'text',regex:(val)=>{return [1,3,5,7,9].includes(val)},msg:'不是包含在1,3,5,7,9中的数字'}
+        ],
+
+
         tip: [
           {
             prop: 'tip',
@@ -245,7 +317,7 @@
             |save-forms-data-before|Function(data)|保存数据之前的修饰方法|||也可以通过全局配置。优先使用参数，如果该参数为空，则会使用全局配置函数|
             |save-forms-data-after|Function(data)|保存数据之后的处理方法|||也可以通过全局配置。优先使用参数，如果该参数为空，则会使用全局配置函数|
             |editor-forms-init-api|Object|编辑数据时配置参数|||详情见下文章|
-            |auto-save|Boolean|【待定】是否自动保存|true||【待定】该参数暂时无效，相关功能，正在开发中.|
+            |auto-save|Boolean|是否自动保存|true|||
             |is-more-level-update-el-date|Boolean|【待定】是否强制刷新Date组件|false||【待定】当前组件封装层数过多时，element-date日期控件会出现不能及时刷新的问题，此时需要设置该属性为 true|
             `
           },
@@ -817,6 +889,361 @@
                  <!-- 可以通过作用域插槽获取到的值，进行自由设置布局 -->
               </template>
             </ld-forms>
+            `.replace(/^         /gm, ''),
+          },
+          {
+            h1:'四.`layout`参数数据校验(`regex`关键字)',
+            tip:'在表单使用过程中，通常需要对数据进行校验，此时可以通过`regex`关键字进行配置',
+            tip_d:'`regex`关键字的类型有【String,Regex,function】',
+            h2:'1.String:`regex`',
+            tipd:'当`regex`值为字符串时，此时会有两种情况；1.纯字符串，2.字符串类型的正则表达式，形如 `"/abc/i"`、`"/abc/igms"`、`"/abc/"`等',
+            slot:'regexString',
+            javascript:`
+            layout:[
+              //纯字符串，会进行数据相等操作；也就是说，只有在输入的值和regex值相同时才会验证通过。这种使用场景较少
+              {prop:'stringRegex1',label:'字符串比对',type:'text',regex:'张三',require:true,tip:'比较值只能为张三',tipClass:'tip-p b-p1'},
+              //字符串类型的正则表达式, 以 / 开头，以 / 结尾。 并结尾使用 igms修饰的，会判定为正则表达式，并转换成正则对象RegExp,之后进行正则验证。
+              {prop:'stringRegex2',label:'字符正则',type:'text',regex:'/^[a-z].*[0-9]$/i',require:true,tip:'字母开头，数字结尾，忽略大小写',tipClass:'tip-p b-p1'},
+            ]`.replace(/^         /gm, ''),
+          },{
+            h2:'2.RegExp:`regex`',
+            tipd:'当值为正则表达式时，会通过正则进行校验数据是否通过！【推荐使用】',
+            slot:'regexRegExp',
+            javascript:`
+            layout:[
+              {prop:'regexRegExp',label:'手机号码',type:'text',regex:/^1[0-9]{10}$/,msg:'必须以数字1开头的11位数字！'},
+              {prop:'regexRegExp2',label:'用户密码',type:'text',password:true,regex:/^[^.'"\\/#!%]{6,12}$/,msg:'不包含特殊符号的6-12为字符'},
+            ]`.replace(/^         /gm, ''),
+          },
+          {
+            h2:'3.Function:`regex`',
+            tipd:'当值为函数时，会将当前值作为入参，并调用验证函数，函数需要返回true和false，表示是否验证通过',
+            slot:'regexFunction',
+            javascript:`
+            layout:[
+              {prop:'regexFunction',label:'只能输入奇数',type:'text',regex:(val)=>{return val%2!=0},msg:'只能输入奇数！'},
+              {prop:'regexFunction2',label:'范围数字',type:'text',regex:(val)=>{return [1,3,5,7,9].includes(val)},msg:'不是包含在1,3,5,7,9中的数字'},
+            ]`.replace(/^         /gm, ''),
+          },
+          {
+            h1:'五.`layout`的非空验证，`require`',
+            tipd:'当`require="true"`时表示，不能为空;`require="false"`或者不设置时可为空',
+            slot:'require',
+            javascript:`
+            layout:[
+              //当require不设置时，默认可为空
+              {prop:'require',label:'可为空',type:'text',require:false},
+              {prop:'require2',label:'不能为空',type:'text',require:true},
+            ]`.replace(/^         /gm, ''),
+          },
+          {
+            h1:'六.`layout`通过`change`设置组件联动和联动后的数据更改',
+            tip_d:'通常在使用过程中，需要通过数据联动。此时需要通过`Function:change`进行设置',
+          },
+          {
+            h2:'1.联动修改组件属性',
+            slot:'changeProperty',
+            javascript:`
+            layout:[
+              { prop: 'testRadio',type: 'radio',label: '特殊资源',
+                options: [
+                  {label: '线下场地免费',value: '1'},
+                  {label: '线上品牌商赞助',value: '0'}
+                ],
+                //联动事件
+                change:(val,event)=>{
+                  return {
+                        //prop:{元素具备的属性}
+                    addressName:{
+                      visabled:val==1, //当 val==1时，将组件prop='addressName'组件的visabled(可见)设为true(显示)
+                      //也可以修复其他 目标组件所具备的属性 如：visabled require regex msg type value 等
+                    },
+                    sponsorship:{
+                      visabled:val==0, //当 val==0时，将组件prop='sponsorship'组件的visabled(可见)设为true(显示)
+                      //也可以修复其他 目标组件所具备的属性 如：visabled require regex msg type value 等
+                    },
+                  }
+                },
+                value:'1'
+              },
+              //被联动组件
+              { prop: 'addressName',type: 'textarea',label: '场地名称',visabled:true,},
+              //被联动组件
+              { prop: 'sponsorship',type: 'text',label: '赞助商名称',visabled:false,},
+            ]`.replace(/^         /gm, ''),
+          },
+          {
+            h2:'2.联动控制整个表单的数据',
+            slot:'changeForms',
+            javascript:`
+            layout:[
+              { prop: 'testRadio',type: 'radio',label: '特殊资源',
+                options: [
+                  {label: '线下场地免费',value: '1'},
+                  {label: '线上品牌商赞助',value: '0'}
+                ],
+                //联动事件
+                change:(val,event)=>{
+                  return {
+                    /**
+                     * 通过form关键字进行操作
+                     * 可使用Function(value,event)函数  或者  Object对象进行操作
+                     *
+                     */
+                    //方式1： 通过Object进行设置
+                    form:{
+                        //prop:value
+                       textInfo:val==1 ? '123456' : 'abcde',
+                       //你需要手动为发起联动的组件赋值
+                       testRadio:val,
+                     },
+                     //方式2；使用function(value,event)函数设置元素的值
+                     form:(value,event)=>{
+                       let form=event['form'];
+                       form['textInfo']=val==1 ? '123456' : 'abcde';
+                       return form;
+                     }
+                  }
+                }
+              },
+              //被联动组件
+              {prop: 'textInfo',type: 'text',label: '场地名称',visabled:true},
+            ]`.replace(/^         /gm, ''),
+          },
+          {
+            h2:'3.联动控制整个表单的布局【不推荐】',
+            tip_d:'联动控制整个表单布局，不建议使用该方式，该方式的使用相当于整个布局的修改，你可以通过两个布局参数进行切换。',
+            slot:'changeLayout',
+            javascript:`
+            layout:[
+              {prop: 'testRadio',type: 'radio',label: '特殊资源',
+                options: [
+                  {label: '线下场地免费',value: '1'},
+                  {label: '线上品牌商赞助',value: '0'}
+                ],
+                //联动事件
+                change:(val,event)=>{
+                  return {
+                    /**
+                     * 通过layout关键字进行操作
+                     * 与from相似，同样可使用Function(value,event)函数  或者  Array对象进行操作
+                     *
+                     */
+                    //方式1： 通过Object进行设置
+                    layout:[
+                      //{}
+                      //此时会将联动发起组件也替换掉
+                      {prop:'textInfo',type:'select',options:[{label:'测试1',value:'1'},{label:'测试2',value:'2'}],label:'修改为select'}
+                     ],
+
+                    //方式2；使用function(value,event)函数设置元素的值
+                    layout: (value, event) => {
+                      let layout = event['layout'];
+                      let item = layout.filter(item => item.prop == 'textInfo');
+                      if (item.length <= 0) {
+                        return layout;
+                      }
+                      let index = layout.indexOf(item[0]);
+                      item=item[0];
+                      //重新修改textInfo结构
+                      item['type'] = val != 1 ? 'text' : 'select';
+                      item['label'] = val != 1 ? '文本框': '修改为select';
+                      item['readonly'] = false;
+                      item['options'] = val != 1 ? [] : [{
+                        label: '测试1',
+                        value: '1'
+                      }, {
+                        label: '测试2',
+                        value: '2'
+                      }];
+                      layout[index] = item;
+                      return layout;
+                    }
+                  }
+                }
+              },
+              {prop: 'textInfo',type: 'text',label: '场地名称',visabled:true},
+            ]`.replace(/^         /gm, ''),
+          },
+          {
+            h2:'4.联动示例',
+            slot:'changeTest',
+            javascript:`
+            layout: [
+              {prop: 'textInfo',type: 'text',tip:'这是被操纵的悲惨组件',label: '文本框',readonly: true,visabled: true,},
+              {prop: 'select',tip:'控制属性和验证规则',label: '属性验证联动',type: 'select',options:
+                [
+                  {label: '修改提示名称',value: '1'},
+                  {label: '修改为只读',value: '2'},
+                  {label: '设置为必填项',value: '3'},
+                  {label: '隐藏文本框',value: '4'},
+                  {label: '使用函数验证4-6为数字',value: '5'},
+                  {label: '使用正则验证4-6为汉字',value: '6'},
+                  {label: '修改为密码框',value: '7'},
+                ],
+                change: (val, event) => {
+                  return {
+                    textInfo: {
+                      label: val == '1' ? '修改后的名称' : '文本框',
+                      readonly: val == '2',
+                      require: val == '3'||val=='7',
+                      visabled: val != '4',
+                      password:val=='7',
+                      //使用正则和 函数混合使用
+                      regex: val=='6' ? /^[\u4e00-\u9fa5]{4,6}$/ : (textVal) => {
+                        return function(textVal) {
+                          if (val != "5"&&val!='7') {
+                            return true;
+                          }
+                          return /^[0-9]{4,6}$/.test(textVal);
+                        }
+                      },
+                      msg: val=='6' ? '名称必须为汉字' : '',
+                    },
+                  }
+                }
+              },
+              {prop: 'changeType',label: '数据布局联动',type: 'select',tip:\`通过<span class='c-d p2'>form</span><span class='c-d p2'>layout</span>控制表单布局和数据\`,
+                options: [
+                  {label: '修改为select',value: '1'},
+                  {label: '修改为text',value: '2'}
+                ],
+                change: (val, event) => {
+                  return {
+                    /**
+                     * 通过form关键字进行操作
+                     * 可使用Function(value,event)函数  或者  Object对象进行操作
+                     *
+                     */
+
+                    //方式1： 通过Object进行设置
+                    // form: {
+                    //   textInfo: ['7', '8', '9'].includes(val) ? '123456' : ''
+                    // },
+                    //方式2；使用function(value,event)函数设置元素的值
+                    form: (value, event) => {
+                      let form = event['form'];
+                      form['textInfo'] =val==2 ? '123456' : '';
+                      return form;
+                    },
+                    /**
+                     * 通过layout关键字进行操作
+                     * 与from相似，同样可使用Function(value,event)函数  或者  Array对象进行操作
+                     *
+                     */
+                    //方式1： 通过Object进行设置
+                    // layout: [
+                    //   {
+                    //     prop: 'textInfo',
+                    //     type: 'select',
+                    //     options: [{
+                    //       label: '测试1',
+                    //       value: '1'
+                    //     }, {
+                    //       label: '测试2',
+                    //       value: '2'
+                    //     }],
+                    //     label: '修改为select'
+                    //   }
+                    // ],
+
+                    //方式2；使用function(value,event)函数设置元素的值
+                    layout: (value, event) => {
+                      let layout = event['layout'];
+                      let item = layout.filter(item => item.prop == 'textInfo');
+                      if (item.length <= 0) {
+                        return layout;
+                      }
+                      let index = layout.indexOf(item[0]);
+                      item=item[0];
+                      //重新修改textInfo结构
+                      item['type'] = val != 1 ? 'text' : 'select';
+                      item['label'] = val != 1 ? '文本框': '修改为select';
+                      item['readonly'] = false;
+                      item['options'] = val != 1 ? [] : [{
+                        label: '测试1',
+                        value: '1'
+                      }, {
+                        label: '测试2',
+                        value: '2'
+                      }];
+                      layout[index] = item;
+                      return layout;
+                    }
+                  }
+                }
+
+              }
+            ]`.replace(/^         /gm, ''),
+          },
+          {
+            h1: "七.`ld-forms`自动保存装饰函数",
+            tip:'当时用自动保存时，我们只需要设置参数和请求方法，即可实现整个表单的数据保存',
+          },
+          {
+            h2:'1.`saveFormsDataBefore` 保存数据之前修饰数据的方法',
+            tipd:'保存数据之前修饰数据的方法,可以通过两种方式进行处理；1.全局处理；2.当前表单处理；<br/>注意：两者具备优先级；优先使用`ld-forms`的`save-forms-data-before`参数设置，后使用全局处理。两者只选其一。',
+            h3:'1.1全局处理',
+            javascript:`
+            this.$ld.saveFormsDataBefore=function(data){
+            	data['createBy']="1";//为所有的保存数据添加创建人
+            	return data;
+            }`.replace(/^         /gm, ''),
+            H3:'1.2当前表单处理',
+            html:`
+            <ld-forms :save-forms-data-before="saveBefore" :clos="2" ref="changeForms" :form="{}" :layout="changeForms"> </ld-forms>
+            `.replace(/^         /gm, ''),
+          },
+          {
+            javascript:`
+            export default{
+              data(){
+                return {
+                  //使用属性处理
+                  saveBefore:function(data){
+                    data['updateTime']=new Date();//为当前表单添加修改日期
+                    return data;
+                  }
+                }
+              }
+            }
+            `.replace(/^         /gm, ''),
+          },
+          {
+            h2:'2.`saveFormsDataAfter` 保存完数据之后处理数据的方法',
+            tipd:'保存数据之后修饰数据的方法,可以通过两种方式进行处理；1.全局处理；2.当前表单处理；<br/>注意：两者具备优先级；优先使用`ld-forms`的`save-forms-data-after`参数设置，后使用全局处理。两者只选其一。',
+            h3:'2.1全局处理',
+            javascript:`
+            this.$ld.saveFormsDataAfter=function(data){
+            	if(result.code==0){
+            			this.$message.success("保存成功！");
+            			return;
+            		}
+            		this.$message.error("保存失败！");
+            		return;
+            }`.replace(/^         /gm, ''),
+            H3:'2.2当前表单处理',
+            html:`
+            <ld-forms :save-forms-data-after="saveAfter" :clos="2" ref="changeForms" :form="{}" :layout="changeForms"> </ld-forms>
+            `.replace(/^         /gm, ''),
+          },
+          {
+            javascript:`
+            export default{
+              data(){
+                return {
+                  //使用属性处理
+                  saveAfter:function(data){
+                    if(result.code==0){
+                        this.$message.success("保存成功！");
+                        return;
+                      }
+                      this.$message.error("保存失败！");
+                      return;
+                  }
+                }
+              }
+            }
             `.replace(/^         /gm, ''),
           },
           {
