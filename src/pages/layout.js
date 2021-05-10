@@ -15,8 +15,8 @@ const layout = {
         { label:'文档【doc】',prop:'文档组件',page:'doc'},
         { label:'菜单树【menu-tree】',prop:'菜单树',page:'menu-tree'},
         { label:'标签页【page-tabs】',prop:'标签页',page:'page-tabs'},
-        { label:'表单【form】',prop:'表单',page:'forms'},
-
+        { label:'表单【forms】',prop:'表单',page:'forms'},
+        { label:'表单【table】',prop:'表格',page:'tables'},
       ],
     },
   ],

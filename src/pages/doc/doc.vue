@@ -39,6 +39,17 @@
           </ld-doc>
         </template>
 
+        <template v-slot:outlines="e">
+          <ld-doc :doc="doc1" class="w h">
+             <template v-slot:outline="e">
+               <!--需要实现的插槽内容-->
+               <div class="w-200 b-d1">
+               这是自定义大纲，大纲内容变量为 e
+               </div>
+             </template>
+          </ld-doc>
+        </template>
+
         <template v-slot:foot="e">
           <foot></foot>
         </template>
@@ -252,6 +263,7 @@
             |skin|String|||皮肤\`light\`\\|\`dark\`;皮肤只作用在大纲上|
             |aligns|String||left|大纲位置\`left\`\\|\`right\`\\|\`center\`|
             |doc-width|String||100%|文档内容区域的宽度;值的格式形如100px或者100%等|
+            |MdAnchorLinkTarget|String||_self|md文档中锚链接点击时打开方式_blank,_self,_parent,_top,framename|
             `
           },
           {
@@ -272,6 +284,21 @@
             md:`|插槽方式|类型|说明|
             |-|-|-|
             |自定名称|作用域插槽|根据传入的数据值定义不同的插槽|`
+          },
+          {
+            h1:'七.自定义大纲；插槽`outline`',
+            tip_d:'插槽名`outline`作为内置关键字，用来自定义文章大纲。',
+            slot:'outlines',
+            html:`
+             <ld-doc :doc="doc1" class="w h">
+                <template v-slot:outline="e">
+                  <!--需要实现的插槽内容-->
+                  <div class="w-200 b-d1">
+                   这是自定义大纲，大纲内容变量为 e
+                  </div>
+                </template>
+             </ld-doc>
+            `.replace(/^          /gm,""),
           },
           {
             slot: 'foot'
@@ -295,5 +322,9 @@
 <style>
   .loading .el-card__body {
     padding: 0 !important;
+  }
+  .ld-doc-item .m-r10.over-a-y.h.p10.box-b.f-n-c-w,.ld-doc-item .over-a-y.h.p10.box-b.f-n-c-w{
+    width: 300px!important;
+    max-width: 300px!important;
   }
 </style>
