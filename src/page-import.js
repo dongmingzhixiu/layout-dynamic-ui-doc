@@ -14,6 +14,8 @@ import css from '@/pages/css/css.vue'
 import utils from '@/pages/utils/utils.vue'
 import frames from '@/pages/frame/frame.vue'
 import axios from '@/pages/axios/axios.vue'
+import juanzhu from '@/pages/juanzhu/juanzhu.vue'
+
 
 
 
@@ -32,6 +34,7 @@ const install = (Vue, opts = {}) => {
 	Vue.component('axios', axios);
 	Vue.component('util', utils);
 	Vue.component('css', css);
+	Vue.component('juanzhu', juanzhu);
 
 
 	Vue.component('foot', foot);

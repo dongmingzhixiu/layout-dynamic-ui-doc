@@ -21,6 +21,7 @@ const layout = {
         { label:'请求封装【axios】',prop:'请求封装',page:'axios',icon:'el-icon-sort'},
         { label:'工具包【util】',prop:'工具包',page:'util',icon:'el-icon-takeaway-box'},
         { label:'样式包【css】',prop:'样式包',page:'css',icon:'el-icon-receiving'},
+        { label:'捐助',prop:'捐助',page:'juanzhu',icon:'el-icon-sugar'},
 
     //   ],
     // },
