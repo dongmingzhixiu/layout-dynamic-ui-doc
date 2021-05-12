@@ -1,5 +1,5 @@
 <template>
-  <ld-frame class="h-vh w" :menu-tree="menuTree"></ld-frame>
+  <ld-frame class="h-vh w" :menu-tree="menuTree" :show-confirm="false"></ld-frame>
 </template>
 
 <script>

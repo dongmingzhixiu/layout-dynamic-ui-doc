@@ -102,9 +102,86 @@
               </template>
             </ld-table>
           </div>
-          <div>选中的数据有：<span class="c-d p-r10 m-r10" v-for="(item,i) in enabledCheckList" :key="i">{{item['nickName']}}</span></div>
+          <div>选中的数据有：<span class="c-d p-r10 m-r10" v-for="(item,i) in enabledCheckList"
+              :key="i">{{item['nickName']}}</span></div>
         </template>
 
+
+        <template v-slot:tableExpand="e">
+          <div class="w" style="height: 500px;">
+            <ld-table ref="tableExpand" :layout="moreLayout" :list="list" :elTableProperty="{defaultExpandAll:false}"
+              :auto-load-data-api="autoLoadDataApi" :show-page-helper="true" :el-pagination="elPagination">
+              <template #tools="e">
+                <el-button size="mini" type="text">按钮</el-button>
+              </template>
+              <template #toolsHeader="e">
+                操作
+              </template>
+
+              <!-- 展开行 -->
+              <template v-slot:expand="{item}">
+                <div class="f-s box-b p-l10 p-r10 tip-d b-d1">
+                  <div class="f-s m-r10">
+                    <span class="m-r4 c8">姓名：</span>
+                    <span class="c6">{{item['nickName']}}</span>
+                  </div>
+                  <div class="f-s m-l10 p-l10">
+                    <span class="m-r4 c8">电话：</span>
+                    <span class="c6">{{item['phone']}}</span>
+                  </div>
+                </div>
+                <div class="f-s box-b p-l10 p-r10  tip-d b-d1">
+                  <span class="m-r4 c8">地址：</span>
+                  <span class="c6">{{item['address']}}</span>
+                </div>
+              </template>
+
+            </ld-table>
+          </div>
+        </template>
+
+        <template v-slot:treeTable="e">
+          <div class="w" style="height: 500px;">
+            <ld-table ref="tableExpand" :layout="moreLayout" :list="list" row-key="id"
+              :el-table-property="{defaultExpandAll:true}" :auto-load-data-api="autoLoadDataApi"
+              :get-table-remote-data-after="getTreeData" :show-page-helper="false">
+              <template #tools="e">
+                <el-button size="mini" type="text">按钮</el-button>
+              </template>
+              <template #toolsHeader="e">
+                操作
+              </template>
+            </ld-table>
+          </div>
+        </template>
+
+        <template v-slot:sumTable="e">
+          <div class="w" style="height: 500px;">
+            <ld-table ref="tableExpand" :layout="moreLayout" :list="list" row-key="id" :auto-load-data-api="autoLoadDataApi"
+              :show-page-helper="false" :el-table-property="{defaultExpandAll:false,showSummary:true,sumText:'合计'}" >
+              <template #tools="e">
+                <el-button size="mini" type="text">按钮</el-button>
+              </template>
+              <template #toolsHeader="e">
+                操作
+              </template>
+            </ld-table>
+          </div>
+        </template>
+
+        <template v-slot:spenMethodTable="e">
+          <div class="w" style="height: 500px;">
+            <ld-table ref="tableExpand" :layout="moreLayout" :list="list" row-key="id" :auto-load-data-api="autoLoadDataApi"
+              :show-page-helper="false" :el-table-property="{spanMethod:objectSpanMethod}" >
+              <template #tools="e">
+                <el-button size="mini" type="text">按钮</el-button>
+              </template>
+              <template #toolsHeader="e">
+                操作
+              </template>
+            </ld-table>
+          </div>
+        </template>
 
 
       </ld-doc>
@@ -128,6 +205,23 @@
 
 
         list: [],
+        getTreeData: (data) => {
+          return this.getTreeDataMethod(data);
+        },
+        objectSpanMethod: ({
+					row,
+					column,
+					rowIndex,
+					columnIndex
+				}) => {
+					if (columnIndex === 1) {
+						return {
+							rowspan: rowIndex % 2 == 0 ? 2 : 0,
+							colspan: rowIndex % 2 == 0 ? 1 : 0
+						};
+					}
+				},
+
 
         doc: [{
             title: '`ld-table`表格使用',
@@ -182,7 +276,7 @@
           },
           {
             h1: '二.分页',
-            tip_d: '分页通过`show-page-helper`参数控制；`true`显示，`false`不显示',
+            tip_p: '分页通过`show-page-helper`参数控制；`true`显示，`false`不显示',
             h2: '1.`show-page-helper=false`不显示分页',
             tip_i: '不显示分页，要就请求接口后获取到的数据为Array',
             slot: 'hidePageHelper',
@@ -241,7 +335,7 @@
           },
           {
             h1: '三.多级表头',
-            tip_i: '多级表头，可使用`label`字段进行嵌套,使用`children`关键字设置层级，`label`类型可以为`String`|`Object`',
+            tip_p: '多级表头，可使用`label`字段进行嵌套,使用`children`关键字设置层级，`label`类型可以为`String`|`Object`',
           },
           {
             h2: '1.普通表头',
@@ -284,7 +378,7 @@
           {
             h2: '3.多级表头',
             slot: 'moreLayout',
-            tip_d: "多级表头，为`label`设置对象属性，对象属性包含`children`嵌套,理论上来说，可以无限嵌套，但为了性能考虑，请谨慎使用！",
+            tip_p: "多级表头，为`label`设置对象属性，对象属性包含`children`嵌套,理论上来说，可以无限嵌套，但为了性能考虑，请谨慎使用！",
             javascript: `
             layout:[{
               label: {
@@ -312,23 +406,227 @@
           },
           {
             h1: '四.多选',
-            tip_d: '`is-enabled-check-box=true`启用复选框进行多选。通过`checkbox(e)`方法得到选中的数据！',
+            tip_p: '`is-enabled-check-box=true`启用复选框进行多选。通过`checkbox(e)`方法得到选中的数据！',
             slot: 'enabledCheckBox',
             html: `
-            `
+            <ld-table :layout="moreLayout" :list="list" :is-enabled-check-box="true"
+              :auto-load-data-api="autoLoadDataApi" :show-page-helper="true" :el-pagination="elPagination"
+              @checkbox="getCheckBox">
+              <template #tools="e">
+                <el-button size="mini" type="text">按钮</el-button>
+              </template>
+              <template #toolsHeader="e">
+                操作
+              </template>
+            </ld-table>
+            `.replace(/^          /gm, ""),
+            javascript: `
+            export default {
+              data(){
+                return {
+                  layout:[
+                    {
+                      label:
+                      { label: '用户信息',
+                        //通过childern实现多级表头
+                        children:[
+                          {prop: 'nickName',label: '用户昵称'},
+                          {prop: 'phone',label: '电话号码'},
+                          {prop: 'sex',label: '性别',html: (val) => {return \`<div class="\${val==1?'c-d':'c-s'}">\${val==1?'男':'女'}</div>\`}},
+                          {prop: 'userType',label: '用户类别',format: (val) => {return val == 1 ? '普通用户' : '超级管理员'}},
+                          {prop: 'birthday',label: '出生日期',format: (val) => {return !val ? '未填写出生日期' : this.$ld.util.getDate(0, new Date(val));}},
+                          {prop: 'createdTime',label: '创建时间',format: (val) => {return !val ? '' : this.$ld.util.getDate(0, new Date(val));}},
+                          {prop: 'updatedTime',label: '修改时间',format: (val) => {return !val ? '' : this.$ld.util.getDate(0, new Date(val));}},
+                        ]
+                      }
+                    }
+                 ],
+                 autoLoadDataApi: {
+                    remotePath: '/test/getUserInfo',
+                    remoteParam: {},
+                    remoteMethodType: "get",
+                    remoteTimeout: null,
+                  }
+                },
+                showPageHelper:true, //可不设置，默认为true
+                elPagination:{pageSizes: [5, 10, 15, 20]} //可不设置，默认为{pageSizes: [10, 20, 30, 50, 80, 100]},
+                /**
+                 * 保存被选中的行
+                 */
+                enabledCheckList:[],
+              },
+              methods:{
+                //通过选中行事件获取选中数据
+                getCheckBox(e) {
+                  this.enabledCheckList = e;
+                }
+              }
+            }
+            `.replace(/^          /gm, ""),
           },
           {
-            h1: '五.展开行'
+            h1: '五.展开行',
+            tip_p: '通过插槽`expand`来实现展示行，通过`:elTableProperty="{defaultExpandAll:false}"`控制默认不展开',
+            slot: 'tableExpand',
+            html: `
+            <ld-table ref="tableExpand" :layout="moreLayout" :list="list" :elTableProperty="{defaultExpandAll:false}"
+              :auto-load-data-api="autoLoadDataApi" :show-page-helper="true" :el-pagination="elPagination">
+              <template #tools="e">
+                <el-button size="mini" type="text">按钮</el-button>
+              </template>
+              <template #toolsHeader="e">
+                操作
+              </template>
+
+              <!-- 展开行 -->
+              <template v-slot:expand="{item}">
+                <div class="f-s box-b p-l10 p-r10 tip-d b-d1">
+                  <div class="f-s m-r10">
+                    <span class="m-r4 c8">姓名：</span>
+                    <span class="c6">{{item['nickName']}}</span>
+                  </div>
+                  <div class="f-s m-l10 p-l10">
+                    <span class="m-r4 c8">电话：</span>
+                    <span class="c6">{{item['phone']}}</span>
+                  </div>
+                </div>
+                 <div class="f-s box-b p-l10 p-r10  tip-d b-d1">
+                  <span class="m-r4 c8">地址：</span>
+                  <span class="c6">{{item['address']}}</span>
+                </div>
+              </template>
+            </ld-table>
+            `.replace(/^          /gm, ""),
           },
           {
-            h1: '六.树形数据'
+            h1: '六.树形数据',
+            tip_d: '在使用树形数据时，必须设置 `row-key`属性，比如`row-key="id"`，组件会使用`row-key`的值作为循环迭代的唯一键。<br/>当数据中包含`children`结构时会自动显示成树形表格。',
+            javascript: `
+            //数据结构形如
+            list:[
+              { names:'张三',
+                children:[
+                  {name:'李四'},
+                  {name:'王五'},
+                  {name:'赵六'},
+                ]
+              },
+              {name:'天气'},
+              {name:'羊八'},
+            ]
+             `.replace(/^          /gm, ""),
+          }, {
+            slot: 'treeTable',
+            html: `
+            <!--get-table-remote-data-after参数整理数据包含children便于识别出为树形数据-->
+            <ld-table :layout="moreLayout" :list="list" row-key="id"
+              :elTableProperty="{defaultExpandAll:false}" :auto-load-data-api="autoLoadDataApi"
+              :get-table-remote-data-after="getTreeData" :show-page-helper="false">
+              <template #tools="e">
+                <el-button size="mini" type="text">按钮</el-button>
+              </template>
+              <template #toolsHeader="e">
+                操作
+              </template>
+            </ld-table>
+            `.replace(/^          /gm, ""),
+            javascript: `
+            export default{
+              data(){
+                return {
+                  //...ld-table其他参数
+
+                  //整理数据参数方法 仅供参考
+                  getTreeData:(_data)=> {
+
+                    // let data =_data['data']['list'];//分页
+                    let data = _data['data'];//无分页
+                    function getChildren(data, pid) {
+                      let d = data.filter(item => item.parentId == pid) || [];
+                      if (d.length > 0) {
+                        d.map(_item => {
+                          let _pid = _item['id'];
+                          let _d = getChildren(data, _pid);
+                          _item['children'] = _d;
+                          _item['children'].map(_citem => {
+                            let _cpid = _citem['id'];
+                            let _cd = getChildren(data, _cpid);
+                            _citem['children'] = _cd;
+                          })
+                        });
+                      }
+                      return d;
+                    }
+                    let d = data.filter(item => !item.parentId || item.parentId == '0');
+                    if (d.length > 0) {
+                      d=getChildren(data,'0')
+                    }
+
+                    //  _data['data']['list']=d;//分页
+                    _data['data'] = d;//无分页
+                    return _data;
+                  }
+                }
+              }
+            }
+            `.replace(/^          /gm, ""),
           },
           {
-            h1: '七.表尾合计行'
+            h1: '七.表尾合计行',
+            tip_p:'合计行:1.需要设置参数 `:el-table-property`的`showSummary=true`；<br/>2.设置 `:el-table-property`的`sumText="合计"`设置合计行第一列的文本；',
+            slot: 'sumTable',
+            html: `
+            <!--合计行:1.需要设置参数\`showSummary=true\`；<br/>2.设置\`sumText="合计"\`设置合计行第一列的文本；-->
+            <ld-table :layout="moreLayout" :list="list" row-key="id"
+              :elTableProperty="{defaultExpandAll:false}" :auto-load-data-api="autoLoadDataApi"
+              :get-table-remote-data-after="getTreeData" :show-page-helper="false">
+              <template #tools="e">
+                <el-button size="mini" type="text">按钮</el-button>
+              </template>
+              <template #toolsHeader="e">
+                操作
+              </template>
+            </ld-table>
+            `.replace(/^          /gm, ""),
+
           },
           {
             h1: '八.合并行或列',
-
+            tip_p:'使用 `:el-table-property`的`spanMethod`参数设置合并列的规则方法,详情参考<a class="c-p" href="https://element.eleme.cn/#/zh-CN/component/table">Element-ui`table`合并行或列</a>',
+            slot:'spenMethodTable',
+            html:`
+            <ld-table :layout="moreLayout" :list="list" row-key="id" :auto-load-data-api="autoLoadDataApi"
+              :show-page-helper="false" :el-table-property="{spanMethod:objectSpanMethod}" >
+              <template #tools="e">
+                <el-button size="mini" type="text">按钮</el-button>
+              </template>
+              <template #toolsHeader="e">
+                操作
+              </template>
+            </ld-table>`.replace(/^          /gm, ""),
+            javascript:`
+            export default{
+              data(){
+                return {
+                  //...ld-table其他参数
+                  //合并列方法 仅供参考
+                  objectSpanMethod: ({
+                    row,
+                    column,
+                    rowIndex,
+                    columnIndex
+                  }) => {
+                    if (columnIndex === 1) {
+                      return {
+                        rowspan: rowIndex % 2 == 0 ? 2 : 0,
+                        colspan: rowIndex % 2 == 0 ? 1 : 0
+                      };
+                    }
+                  },
+                }
+              }
+            }
+            `.replace(/^          /gm, ""),
           },
           {
             h1: '九.属性和参数',
@@ -341,7 +639,7 @@
             |list|Array|布局数据值|||通常情况下，推荐使用自动装载数据;|
             |is-enabled-check-box|Boolean|是否显示复选框|false|-|当使用复选框时。如需获取选择状态，需要实现\`checkbox(e)\`方法|
             |row-key|String|行数据的key|id||行数据的 Key，用来优化 Table 的渲染；在使用树形数据时，该属性是必填的。|
-            |el-tabl-property|Object|Element-ui表格参数|||Element-ui表格参数,详情查看[el-tabl-property](#h2_el-tabl-property参数说明)|
+            |el-table-property|Object|Element-ui表格参数|||Element-ui表格参数,详情查看[el-table-property](#h2_el-table-property参数说明)|
             |get-table-remote-data-after|Function(data)|获取表单数据之后，装载数据之前，调用的装饰函数|||获取表单数据之后，装载数据之前，调用的装饰函数|
             |show-page-helper|Boolean|是否使用分页显示数据|true|-|当使用分页时，每页的数据会通过，分页的方式，发送请求加载数据|
             |page-size|Number|每页条数|30||当\`showPageHelper\`为true时有效，且该参数会受分页组件中的条数进行更改|
@@ -373,7 +671,7 @@
             |remoteTimeout|Number|请求超时时间,超时时间可通过\`this.$ld.requestSetting.config.timeout = 2000;\`进行全局设置|2000ms|√|-|`
           },
           {
-            h2: '`el-tabl-property`参数说明',
+            h2: '`el-table-property`参数说明',
             md: `|关键字|类型|解释|可选值|是否必须|默认值|
             |-|-|-|-|-|-|
             |border|Boolean|是否带有纵向边框|||true|
@@ -443,7 +741,7 @@
           },
           {
             h2: '`replace`数据值替换',
-            tip_d: `配置一组请求参数，通过自动请求的方式，显示另一张表对应的数据。<br/>
+            tip_p: `配置一组请求参数，通过自动请求的方式，显示另一张表对应的数据。<br/>
             比如在数据中，只包含\`创建人编号\`，而\`创建人信息\`在另一张表，此时即可使用该参数，动态替换创建人编号<br/>
             <span class="c8">该方式加载数据目前已使用局部缓存(只在当前组件内部缓存，当组件整体刷新时，会重新获取！后期根据使用反馈进行调整全局缓存等方式)</span>`,
             md: `|关键字|类型|解释|是否必须|补充|
@@ -470,8 +768,43 @@
     },
     methods: {
       getCheckBox(e) {
-        debugger
         this.enabledCheckList = e;
+      },
+      /**
+       * 对获取的到数据进行整理
+       * @param {Object} data
+       */
+      getTreeDataMethod(_data) {
+        //分页
+        // let data =_data['data']['list']
+        //无分页
+        let data = _data['data'];
+
+        function getChildren(data, pid) {
+          let d = data.filter(item => item.parentId == pid) || [];
+          if (d.length > 0) {
+            d.map(_item => {
+              let _pid = _item['id'];
+              let _d = getChildren(data, _pid);
+              _item['children'] = _d;
+              _item['children'].map(_citem => {
+                let _cpid = _citem['id'];
+                let _cd = getChildren(data, _cpid);
+                _citem['children'] = _cd;
+              })
+            });
+          }
+          return d;
+        }
+        let d = data.filter(item => !item.parentId || item.parentId == '0');
+        if (d.length > 0) {
+          d=getChildren(data,'0')
+        }
+        //分页
+        //  _data['data']['list']=d;
+        //无分页
+        _data['data'] = d;
+        return _data;
       }
     }
   }

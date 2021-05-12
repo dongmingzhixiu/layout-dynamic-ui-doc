@@ -25,11 +25,13 @@ Mock.mock(new RegExp('/test/getUserInfo.*'), 'get', (req, res) => { //当post或
     let listObject = {
       nickName: Random.cname(), //随机生成一段中文文本。
       phone: Random.integer(10000000000, 19999999999),
-      id: Random.integer(100, 9999), //返回一个随机的整数。
+      id: (i+1)+"", //返回一个随机的整数。
       userType: Random.integer(0, 2),
       birthday: Random.date(),
       updatedTime: Random.date(),
       createdTime: Random.date(),
+      address:Random.county(true),
+      parentId:i<4?0:i>4?i-3:i>=9?9-4:1,
     }
     list.push(listObject);
   }
