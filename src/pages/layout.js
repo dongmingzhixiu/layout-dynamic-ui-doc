@@ -4,7 +4,7 @@ const layout = {
 		//   icon: 'el-icon-s-open',
 		//   label: '开发指南',
 		//   children: [
-		    { label:'快速开始',prop:'快速开始',page:'install',icon:'el-icon-picture-outline-round'},
+		    { label:'快速开始',prop:'快速开始',page:'install',icon:'el-icon-picture-outline-round',showClose:false},
 		//   ],
 		// },
     // {
@@ -17,11 +17,16 @@ const layout = {
         { label:'标签页【page-tabs】',prop:'标签页',page:'page-tabs',icon:'el-icon-document-copy'},
         { label:'表单【forms】',prop:'表单',page:'forms',icon:'el-icon-s-order'},
         { label:'表格【table】',prop:'表格',page:'tables',icon:'el-icon-menu'},
-        { label:'表格【frame】',prop:'表格',page:'frame',icon:'el-icon-s-platform'},
+        { label:'管理页【frame】',prop:'管理页',page:'frame',icon:'el-icon-s-platform'},
         { label:'请求封装【axios】',prop:'请求封装',page:'axios',icon:'el-icon-sort'},
         { label:'工具包【util】',prop:'工具包',page:'util',icon:'el-icon-takeaway-box'},
         { label:'样式包【css】',prop:'样式包',page:'css',icon:'el-icon-receiving'},
         { label:'捐助',prop:'捐助',page:'juanzhu',icon:'el-icon-sugar'},
+        { label:'项目案例',prop:'项目案例',page:'example',icon:'el-icon-printer',
+          children: [
+            {label:'构建项目',prop:'构建项目',page:'first'},
+          ]
+        },
 
     //   ],
     // },
