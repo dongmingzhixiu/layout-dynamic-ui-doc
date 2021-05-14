@@ -4,7 +4,7 @@
     <el-card class="doc w h">
       <ld-doc :doc="doc" class="w h" doc-width="100%">
         <template v-slot:first="e">
-          <el-card class="w over-a-x p10 box-b" style="height: 440px;">
+          <el-card class="w over-a-x p10 box-b" style="height: 480px;">
             <ld-forms ref="form1" :cols="2" :form="forms" :layout="formLayout1" class="w"
               style="height: 420px;min-width: 800px;">
               <template v-slot:buttons="e">
@@ -1245,6 +1245,52 @@
                 }
               }
             }
+            `.replace(/^         /gm, ''),
+          },
+          {
+            h1:"八.补充",
+            h2:'联动参数动态注入',
+            tip:'当有一个远程加载数据和当前联动值相关时。需要改方法。',
+            tip_d:'比如有如下场景。动态加载`学生信息`，且`学生信息`和`用户`选择的`班级`息息相关，即：只能动态加载用户选择班级的学生信息。此时可以通过如下配置进行',
+            javascript:`
+            layout:[
+              //班级下拉框
+              {
+                prop:'classId',label:'班级',type:'select',
+                 //班级数据动态获取
+                getOptions:{
+                  remotePath: '/clzss/get', //请求方法
+                  remoteMethodType: "get",//请求类型
+                  remoteParam:{},//参数
+                  label:'\${names}(\${id})',//下拉框显示文字；比如有数据[{id:1,nickName:'张三',phone:'18888888888'}] => '张三(18888888888)'
+                  value:'\${id}', //此处的'\${id}'<=>'id' 下拉框选项值；比如有数据[{id:1,nickName:'张三',phone:'18888888888'}] => '1'
+                },
+                //联动事件
+                change:(val)=>{
+                  return {
+                    //当班级改变时，联动调用远程加载数据，加载 studentId的数据
+                    changeOptions:{
+                      prop:'studentId'
+                    }
+                  }
+                }
+              },
+              //学生下拉框
+              {
+                prop:'studentId',label:'学生名称',type:'select',
+                //学生数据动态获取
+                getOptions:{
+                	remotePath: '/clzss/get',
+                	remoteMethodType: "get",
+                  //此时需要在这里指定需要注入的参数名称'\${classId}',使用\${xxx}来让系统识别是需要注入的内容，而注入的值则会从this.forms对象中获取
+                	remoteParam:{
+                    '\${classId}':''
+                  },//参数
+                	label:'\${names}',
+                	value:'\${id}',
+                },
+              }
+            ]
             `.replace(/^         /gm, ''),
           },
           {
